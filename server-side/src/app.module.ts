@@ -10,10 +10,14 @@ import { StoreModule } from './store/store.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
+import { PaymentModule } from './payment/payment.module';
+import { PrismaModule } from './prisma.module';
+import { StripeController } from './stripe.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
     AuthModule,
     UserModule,
     OrderModule,
@@ -24,6 +28,8 @@ import { ReviewModule } from './review/review.module';
     StatisticsModule,
     ProductModule,
     ReviewModule,
+    PaymentModule,
   ],
+  controllers: [StripeController],
 })
 export class AppModule {}
