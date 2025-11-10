@@ -39,9 +39,10 @@ axiosWithAuth.interceptors.response.use(
       try {
         await authService.getNewTokens();
         return axiosWithAuth.request(originalRequest);
-      } catch (error) {}
-      if (errorCatch(error) === "jwt expired") {
-        removeFromStorage();
+      } catch {
+        if (errorCatch(error) === "jwt expired") {
+          removeFromStorage();
+        }
       }
     }
   }
