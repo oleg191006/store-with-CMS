@@ -73,18 +73,17 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() _req) {}
+  async googleAuth() {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthCallback(
-    @Req() req: any,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async googleAuthCallback(@Req() req: any, @Res() res: Response) {
     const { refreshToken, ...response } =
       await this.authService.validateOAuthLogin(req);
+    const redirectUrl =
+      process.env.CLIENT_URL + '/dashboard?accessToken=' + response.accessToken;
+
     this.authService.addRefreshTokenToResponse(res, refreshToken);
-    return res.redirect(`
-      ${process.env.CLIENT_URL}/dashboard?accessToken=${response.accessToken}`);
+    res.redirect(redirectUrl);
   }
 }
