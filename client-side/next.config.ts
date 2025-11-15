@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  sassOptions: {
+    includePaths: ["./src"],
+  },
   async rewrites() {
     return [
       {
