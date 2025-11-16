@@ -12,7 +12,7 @@ class UserService {
 
   async toggleFavorite(productId: string) {
     return axiosWithAuth<IUser>({
-      url: API_URL.users(`/profile/favorites/${productId}`),
+      url: API_URL.users(`profile/favorites/${productId}`),
       method: "PATCH",
     });
   }

@@ -46,4 +46,4 @@ class ColorService {
   }
 }
 
-export const categoryService = new ColorService();
+export const colorService = new ColorService();
