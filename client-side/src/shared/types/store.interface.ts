@@ -6,4 +6,4 @@ export interface IStore {
 
 export type IStoreCreate = Pick<IStore, "title">;
 
-export type IStoreUpdate = Omit<IStore, "id">;
+export type IStoreEdit = Omit<IStore, "id">;
