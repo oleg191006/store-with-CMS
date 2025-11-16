@@ -3,7 +3,7 @@ import { API_URL } from "@/config/api.config";
 import { ICategory, ICategoryInput } from "@/shared/types/category.interface";
 
 class CategoryService {
-  async getBySroreId(id: string) {
+  async getByStoreId(id: string) {
     const { data } = await axiosWithAuth<ICategory[]>({
       url: API_URL.categories(`by-storeId/${id}`),
       method: "GET",
