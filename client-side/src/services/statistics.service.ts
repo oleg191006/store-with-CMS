@@ -3,7 +3,7 @@ import { API_URL } from "@/config/api.config";
 
 import {
   IMainStatistics,
-  IMiddleStatistacs,
+  IMiddleStatistics,
 } from "@/shared/types/statistics.interface";
 
 class StatisticsService {
@@ -16,7 +16,7 @@ class StatisticsService {
   }
 
   async getMiddle(storeId: string) {
-    const { data } = await axiosWithAuth<IMiddleStatistacs[]>({
+    const { data } = await axiosWithAuth<IMiddleStatistics>({
       url: API_URL.statistics(`middle/${storeId}`),
       method: "GET",
     });

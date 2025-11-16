@@ -17,7 +17,7 @@ export interface ILastUsers {
   total: number;
 }
 
-export interface IMiddleStatistacs {
+export interface IMiddleStatistics {
   monthlySales: IMonthlySales[];
   lastUsers: ILastUsers[];
 }
