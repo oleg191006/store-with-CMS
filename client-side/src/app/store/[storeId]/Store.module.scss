@@ -1,3 +1,22 @@
 .wrapper {
   @apply p-6;
+
+  > .header {
+    @apply flex items-center justify-between;
+    > .buttons {
+      @apply flex items-center gap-x-4;
+
+      svg {
+        @apply size-4;
+      }
+    }
+  }
+
+  form {
+    @apply space-y-6 h-full;
+
+    > .fields {
+      @apply grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4;
+    }
+  }
 }
