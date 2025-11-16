@@ -12,6 +12,10 @@
     }
   }
 
+  > .table {
+    @apply mt-3;
+  }
+
   form {
     @apply space-y-6 h-full;
 
