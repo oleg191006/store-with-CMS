@@ -1,7 +1,6 @@
 import { ICategory } from "./category.interface";
 import { IColor } from "./color.interface";
 import { IReview } from "./review.interface";
-import { IStore } from "./store.interface";
 
 export interface IProduct {
   id: string;
@@ -12,11 +11,11 @@ export interface IProduct {
   category: ICategory;
   reviews: IReview[];
   color: IColor;
-  store: IStore;
+  storeId: string;
 }
 
 export interface IProductInput
-  extends Omit<IProduct, "id" | "category" | "reviews" | "store" | "color"> {
+  extends Omit<IProduct, "id" | "category" | "reviews" | "storeId" | "color"> {
   categoryId: string;
   colorId: string;
 }
