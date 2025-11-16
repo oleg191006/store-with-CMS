@@ -51,7 +51,7 @@ export class StoreController {
 
   @HttpCode(200)
   @Auth()
-  @Delete()
+  @Delete(':id')
   async delete(
     @Param('id') storeId: string,
     @CurrentUser('id') userId: string,
