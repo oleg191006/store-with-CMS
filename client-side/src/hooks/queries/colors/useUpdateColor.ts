@@ -1,8 +1,7 @@
-import { STORE_URL } from "@/config/url.config";
 import { colorService } from "@/services/color.service";
 import { IColorInput } from "@/shared/types/color.interface";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 
