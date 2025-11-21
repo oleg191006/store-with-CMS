@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ProductDto } from './dto/product.dto';
 
@@ -138,6 +143,30 @@ export class ProductService {
   }
 
   async create(storeId: string, dto: ProductDto) {
+    const categoryExists = await this.prisma.category.findUnique({
+      where: { id: dto.categoryId },
+    });
+
+    if (!categoryExists) {
+      throw new BadRequestException('Category not found');
+    }
+
+    const colorExists = await this.prisma.color.findUnique({
+      where: { id: dto.colorId },
+    });
+
+    if (!colorExists) {
+      throw new BadRequestException('Color not found');
+    }
+
+    const storeExists = await this.prisma.store.findUnique({
+      where: { id: storeId },
+    });
+
+    if (!storeExists) {
+      throw new NotFoundException('Store not found');
+    }
+
     return this.prisma.product.create({
       data: {
         title: dto.title,
@@ -147,6 +176,10 @@ export class ProductService {
         categoryId: dto.categoryId,
         colorId: dto.colorId,
         storeId,
+      },
+      include: {
+        category: true,
+        color: true,
       },
     });
   }
@@ -165,7 +198,25 @@ export class ProductService {
   async delete(id: string) {
     await this.getById(id);
 
-    return this.prisma.product.delete({
+    const orderItemsCount = await this.prisma.orderItem.count({
+      where: {
+        productId: id,
+      },
+    });
+
+    if (orderItemsCount > 0) {
+      throw new ConflictException(
+        `Cannot delete product. It is used in ${orderItemsCount} order(s).`,
+      );
+    }
+
+    await this.prisma.review.deleteMany({
+      where: {
+        productId: id,
+      },
+    });
+
+    return await this.prisma.product.delete({
       where: {
         id,
       },

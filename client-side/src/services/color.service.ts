@@ -5,7 +5,7 @@ import { IColor, IColorInput } from "@/shared/types/color.interface";
 class ColorService {
   async getByStoreId(id: string) {
     const { data } = await axiosWithAuth<IColor[]>({
-      url: API_URL.colors(`/by-storeId/${id}`),
+      url: API_URL.colors(`by-storeId/${id}`),
       method: "GET",
     });
     return data;
@@ -13,7 +13,7 @@ class ColorService {
 
   async getById(id: string) {
     const { data } = await axiosClassic<IColor>({
-      url: API_URL.colors(`/by-id/${id}`),
+      url: API_URL.colors(`by-id/${id}`),
       method: "GET",
     });
     return data;
@@ -21,7 +21,7 @@ class ColorService {
 
   async create(data: IColorInput, storeId: string) {
     const { data: createdColor } = await axiosWithAuth<IColor>({
-      url: API_URL.colors(`/${storeId}`),
+      url: API_URL.colors(`${storeId}`),
       method: "POST",
       data,
     });
@@ -30,7 +30,7 @@ class ColorService {
 
   async update(id: string, data: IColorInput) {
     const { data: updatedColor } = await axiosWithAuth<IColor>({
-      url: API_URL.colors(`/${id}`),
+      url: API_URL.colors(`${id}`),
       method: "PUT",
       data,
     });
@@ -39,7 +39,7 @@ class ColorService {
 
   async delete(id: string) {
     const { data: deletedColor } = await axiosWithAuth<IColor>({
-      url: API_URL.colors(`/${id}`),
+      url: API_URL.colors(`${id}`),
       method: "DELETE",
     });
     return deletedColor;
