@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "@/api/api.interceptors";
+import { axiosClassic, axiosWithAuth } from "@/api/api.interceptors";
 import { API_URL } from "@/config/api.config";
 import { ICategory, ICategoryInput } from "@/shared/types/category.interface";
 
@@ -12,13 +12,14 @@ class CategoryService {
   }
 
   async getById(id: string) {
-    const { data } = await axiosWithAuth<ICategory>({
-      url: API_URL.categories(`by-id/${id}`),
+    const url = API_URL.categories(`by-id/${id}`);
+    console.log("Fetching category from:", url); // Debug line
+    const { data } = await axiosClassic({
+      url,
       method: "GET",
     });
     return data;
   }
-
   async create(data: ICategoryInput, storeId: string) {
     const { data: createdCategory } = await axiosWithAuth<ICategory>({
       url: API_URL.categories(`${storeId}`),
