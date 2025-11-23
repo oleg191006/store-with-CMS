@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 export const useCreateColor = () => {
   const params = useParams<{ storeId: string }>();
-  const routes = useRouter();
+  const router = useRouter();
 
   const queryClient = useQueryClient();
 
@@ -21,7 +21,11 @@ export const useCreateColor = () => {
         queryKey: ["get colors for store dashboard"],
       });
       toast.success("Color created successfully");
-      routes.push(STORE_URL.colors(params.storeId));
+      if (params?.storeId) {
+        setTimeout(() => {
+          router.push(STORE_URL.colors(params.storeId));
+        }, 1500);
+      }
     },
     onError() {
       toast.error("Failed to create color. Please try again.");
