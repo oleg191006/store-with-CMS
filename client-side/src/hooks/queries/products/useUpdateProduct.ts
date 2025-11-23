@@ -1,5 +1,6 @@
 "use client";
 
+import { STORE_URL } from "@/config/url.config";
 import { productService } from "@/services/product.service";
 import { IProductInput } from "@/shared/types/product.interface";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -28,7 +29,7 @@ export const useUpdateProduct = () => {
 
       if (params?.storeId) {
         setTimeout(() => {
-          router.push(`/store/${params.storeId}/products`);
+          router.push(STORE_URL.products(params.storeId));
         }, 1500);
       }
     },

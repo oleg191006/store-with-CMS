@@ -22,7 +22,11 @@ export const useCreateProduct = () => {
         queryKey: ["get products for store dashboard"],
       });
       toast.success("Product created successfully");
-      router.push(STORE_URL.products(params.storeId));
+      if (params?.storeId) {
+        setTimeout(() => {
+          router.push(STORE_URL.products(params.storeId));
+        }, 1500);
+      }
     },
     onError() {
       toast.error("Failed to create product. Please try again.");
