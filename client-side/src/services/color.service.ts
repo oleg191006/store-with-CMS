@@ -1,4 +1,4 @@
-import { axiosClassic, axiosWithAuth } from "@/api/api.interceptors";
+import { axiosWithAuth } from "@/api/api.interceptors";
 import { API_URL } from "@/config/api.config";
 import { IColor, IColorInput } from "@/shared/types/color.interface";
 
@@ -12,7 +12,7 @@ class ColorService {
   }
 
   async getById(id: string) {
-    const { data } = await axiosClassic<IColor>({
+    const { data } = await axiosWithAuth<IColor>({
       url: API_URL.colors(`by-id/${id}`),
       method: "GET",
     });
