@@ -111,9 +111,12 @@ export class ProductService {
       where: {
         id: { in: productIds },
       },
+      include: {
+        category: true,
+      },
     });
 
-    return products;
+    return productIds.map((id) => products.find((p) => p.id === id));
   }
 
   async getSimilar(id: string) {
