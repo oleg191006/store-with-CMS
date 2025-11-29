@@ -22,6 +22,7 @@ export class ProductService {
       },
       include: {
         category: true,
+        color: true,
       },
     });
     return products;
@@ -36,12 +37,21 @@ export class ProductService {
               contains: searchTerm,
               mode: 'insensitive',
             },
+          },
+          {
             description: {
               contains: searchTerm,
               mode: 'insensitive',
             },
           },
         ],
+      },
+      include: {
+        category: true,
+        color: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
   }
@@ -66,7 +76,11 @@ export class ProductService {
       include: {
         category: true,
         color: true,
-        reviews: true,
+        reviews: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
 
