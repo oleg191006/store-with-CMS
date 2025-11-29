@@ -2,13 +2,12 @@ import { SITE_DESCRIPTION } from "@/constants/seo.constants";
 import Link from "next/link";
 import { PUBLIC_URL } from "@/config/url.config";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react"; // Додав іконку для "вау" ефекту
+import { ArrowRight, Sparkles } from "lucide-react";
 import styles from "./Hero.module.scss";
 
 export function Hero() {
   return (
     <div className={styles.section}>
-      {/* Додатковий декоративний елемент зверху */}
       <div className={styles.badge}>
         <Sparkles className="mr-2 size-4 text-primary" />
         <span>New E-commerce Experience</span>
