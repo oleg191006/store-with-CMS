@@ -1,18 +1,51 @@
 .card {
-  @apply bg-white;
+  @apply bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-gray-100;
 
-  img {
-    @apply rounded-lg;
-  }
-  > .title {
-    @apply mt-4 font-semibold text-gray-700 line-clamp-1;
+  &:hover {
+    @apply transform -translate-y-1;
   }
 
-  > .category {
-    @apply mt-1 text-sm text-gray-500;
+  .imageLink {
+    @apply block relative overflow-hidden bg-gray-50;
   }
 
-  > .price {
-    @apply mt-1 font-medium text-sm text-gray-900;
+  .imageWrapper {
+    @apply w-full aspect-square relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100;
+
+    img {
+      @apply w-full h-full object-cover transition-transform duration-500;
+    }
+
+    &:hover img {
+      @apply scale-110;
+    }
+
+    .imageError {
+      @apply w-full h-full flex flex-col items-center justify-center text-gray-300 gap-2;
+
+      svg {
+        @apply w-12 h-12 sm:w-16 sm:h-16;
+      }
+
+      span {
+        @apply text-sm font-medium;
+      }
+    }
+  }
+
+  .info {
+    @apply p-4 flex flex-col gap-2 flex-grow;
+
+    .title {
+      @apply text-base sm:text-lg font-semibold text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors min-h-[3rem];
+    }
+
+    .category {
+      @apply text-xs sm:text-sm text-gray-500 hover:text-blue-500 transition-colors font-medium uppercase tracking-wide w-fit;
+    }
+
+    .price {
+      @apply text-xl sm:text-2xl font-bold text-gray-900 mt-auto pt-2;
+    }
   }
 }
