@@ -17,17 +17,25 @@ import {
 } from "@/components/ui/popover";
 import { STORE_URL } from "@/config/url.config";
 import { IStore } from "@/shared/types/store.interface";
-import { ChevronsUpDown, Plus, StoreIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Check, ChevronsUpDown, Plus, StoreIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState, useMemo } from "react";
 
 interface StoreSwitcherProps {
   items: IStore[];
 }
 
 export function StoreSwitcher({ items }: StoreSwitcherProps) {
+  const params = useParams();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+
+  const currentStoreId = params?.storeId as string;
+
+  const currentStore = useMemo(
+    () => items.find((store) => store.id === currentStoreId),
+    [items, currentStoreId]
+  );
 
   const onStoreSelect = (storeId: string) => {
     setIsOpen(false);
@@ -43,11 +51,15 @@ export function StoreSwitcher({ items }: StoreSwitcherProps) {
           role="combobox"
           aria-expanded={isOpen}
           aria-label="Select a store"
-          className="w-52"
+          className="justify-between w-52"
         >
-          <StoreIcon className="mr-2 size-4" />
-          Current Store
-          <ChevronsUpDown className="ml-auto opacity-50 size-4 shrink-50" />
+          <div className="flex items-center gap-2 overflow-hidden">
+            <StoreIcon className="size-4 shrink-0" />
+            <span className="truncate">
+              {currentStore?.title || "Select store"}
+            </span>
+          </div>
+          <ChevronsUpDown className="ml-2 opacity-50 size-4 shrink-0" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-52">
@@ -59,11 +71,14 @@ export function StoreSwitcher({ items }: StoreSwitcherProps) {
               {items.map((store) => (
                 <CommandItem
                   key={store.id}
-                  className="text-sm"
+                  className="text-sm cursor-pointer"
                   onSelect={() => onStoreSelect(store.id)}
                 >
                   <StoreIcon className="mr-2 size-4" />
-                  <div className="line-clamp-1">{store.title}</div>
+                  <span className="flex-1 truncate">{store.title}</span>
+                  {currentStore?.id === store.id && (
+                    <Check className="ml-auto size-4" />
+                  )}
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -72,7 +87,7 @@ export function StoreSwitcher({ items }: StoreSwitcherProps) {
           <CommandList>
             <CommandGroup>
               <CreateStoreModal>
-                <CommandItem>
+                <CommandItem className="cursor-pointer">
                   <Plus className="mr-2 size-4" />
                   Create New Store
                 </CommandItem>
