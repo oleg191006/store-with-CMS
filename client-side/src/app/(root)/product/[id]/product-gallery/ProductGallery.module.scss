@@ -1,0 +1,11 @@
+.image {
+  @apply rounded-lg w-[500px] h-[400px] object-contain;
+}
+
+.gallery {
+  @apply flex mt-6 gap-6;
+
+  > .item {
+    @apply duration-300 border rounded-lg overflow-hidden;
+  }
+}
