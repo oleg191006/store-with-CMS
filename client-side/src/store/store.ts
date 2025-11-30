@@ -7,6 +7,7 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
+  type Persistor,
 } from "redux-persist";
 
 const isClient = typeof window !== "undefined";
@@ -16,7 +17,7 @@ const combinedReducers = combineReducers({
 });
 
 let mainReducer = combinedReducers;
-let persistor;
+let persistor: Persistor | undefined; // 👈 2. Оголошуємо persistor з явним типом Persistor або undefined
 
 if (isClient) {
   const { persistReducer, persistStore } = require("redux-persist");
@@ -43,9 +44,11 @@ export const store = configureStore({
 
 if (isClient) {
   const { persistStore } = require("redux-persist");
+  // 3. Присвоюємо значення
   persistor = persistStore(store);
 }
 
+// 4. Експортуємо persistor (він матиме тип Persistor | undefined)
 export { persistor };
 
 export type TypeRootState = ReturnType<typeof mainReducer>;
