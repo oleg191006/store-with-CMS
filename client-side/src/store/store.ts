@@ -7,8 +7,11 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
+  persistStore,
+  persistReducer,
   type Persistor,
 } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const isClient = typeof window !== "undefined";
 
@@ -16,21 +19,15 @@ const combinedReducers = combineReducers({
   cart: cartSlice.reducer,
 });
 
-let mainReducer = combinedReducers;
-let persistor: Persistor | undefined; // 👈 2. Оголошуємо persistor з явним типом Persistor або undefined
+const persistConfig = {
+  key: "vendens-store",
+  storage,
+  whitelist: ["cart"],
+};
 
-if (isClient) {
-  const { persistReducer, persistStore } = require("redux-persist");
-  const storage = require("redux-persist/lib/storage").default;
-
-  const persistConfig = {
-    key: "vendens-store",
-    storage,
-    whitelist: ["cart"],
-  };
-
-  mainReducer = persistReducer(persistConfig, combinedReducers);
-}
+const mainReducer = isClient
+  ? persistReducer(persistConfig, combinedReducers)
+  : combinedReducers;
 
 export const store = configureStore({
   reducer: mainReducer,
@@ -42,13 +39,8 @@ export const store = configureStore({
     }),
 });
 
-if (isClient) {
-  const { persistStore } = require("redux-persist");
-  // 3. Присвоюємо значення
-  persistor = persistStore(store);
-}
-
-// 4. Експортуємо persistor (він матиме тип Persistor | undefined)
-export { persistor };
+export const persistor: Persistor | null = isClient
+  ? persistStore(store)
+  : null;
 
 export type TypeRootState = ReturnType<typeof mainReducer>;

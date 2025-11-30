@@ -21,14 +21,21 @@ export function Providers({
       },
     })
   );
+
   return (
     <QueryClientProvider client={client}>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Toaster />
-
-          {children}
-        </PersistGate>
+        {persistor ? (
+          <PersistGate loading={null} persistor={persistor}>
+            <Toaster />
+            {children}
+          </PersistGate>
+        ) : (
+          <>
+            <Toaster />
+            {children}
+          </>
+        )}
       </Provider>
     </QueryClientProvider>
   );
