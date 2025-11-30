@@ -24,7 +24,6 @@ const nextConfig: NextConfig = {
   },
   // Додаємо налаштування для production
   reactStrictMode: true,
-  swcMinify: true,
   async rewrites() {
     return [
       {
