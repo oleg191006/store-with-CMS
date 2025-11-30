@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: ["./src"],
   },
+  // Додаємо налаштування для production
+  reactStrictMode: true,
+  swcMinify: true,
   async rewrites() {
     return [
       {

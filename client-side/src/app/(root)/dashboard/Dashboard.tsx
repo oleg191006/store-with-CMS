@@ -32,7 +32,12 @@ export function Dashboard() {
   const { mutate: logout } = useMutation({
     mutationKey: ["logout"],
     mutationFn: () => authService.logout(),
-    onSuccess: () => router.push("/auth"),
+    onSuccess: () => {
+      // Використовуємо window.location для надійного редіректу після видалення cookies
+      setTimeout(() => {
+        window.location.href = "/auth";
+      }, 100);
+    },
   });
 
   if (!user) {

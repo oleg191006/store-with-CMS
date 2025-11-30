@@ -1,3 +1,5 @@
+"use client";
+
 import { STORE_URL } from "@/config/url.config";
 import { colorService } from "@/services/color.service";
 import { IColorInput } from "@/shared/types/color.interface";

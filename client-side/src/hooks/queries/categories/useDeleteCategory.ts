@@ -1,3 +1,5 @@
+"use client";
+
 import { STORE_URL } from "@/config/url.config";
 import { categoryService } from "@/services/category.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
