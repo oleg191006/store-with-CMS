@@ -2,6 +2,7 @@ import { productService } from "@/services/product.service";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Product } from "./Product";
+import { Suspense } from "react";
 
 export const revalidate = 60;
 
@@ -75,10 +76,12 @@ export default async function ProductPage(props: {
   const { product, similarProducts } = data;
 
   return (
-    <Product
-      initialProduct={product}
-      similarProducts={similarProducts}
-      id={id}
-    />
+    <Suspense fallback={<div>Loading product...</div>}>
+      <Product
+        initialProduct={product}
+        similarProducts={similarProducts}
+        id={id}
+      />
+    </Suspense>
   );
 }

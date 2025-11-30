@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import { Dashboard } from "./Dashboard";
 
 export default function DashboardPage() {
-  return <Dashboard />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Dashboard />;
+    </Suspense>
+  );
 }

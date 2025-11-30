@@ -1,6 +1,7 @@
 import { productService } from "@/services/product.service";
 import { Metadata } from "next";
 import { Explorer } from "./Explorer";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Explorer",
@@ -15,5 +16,9 @@ async function getProducts() {
 
 export default async function ExplorerPage() {
   const data = await getProducts();
-  return <Explorer products={data} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Explorer products={data} />;
+    </Suspense>
+  );
 }

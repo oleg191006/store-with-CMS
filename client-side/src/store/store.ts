@@ -25,9 +25,8 @@ const persistConfig = {
   whitelist: ["cart"],
 };
 
-const mainReducer = isClient
-  ? persistReducer(persistConfig, combinedReducers)
-  : combinedReducers;
+// Завжди використовуємо persistReducer, але на сервері він просто не буде працювати
+const mainReducer = persistReducer(persistConfig, combinedReducers);
 
 export const store = configureStore({
   reducer: mainReducer,
@@ -39,8 +38,9 @@ export const store = configureStore({
     }),
 });
 
+// Створюємо persistor тільки на клієнті
 export const persistor: Persistor | null = isClient
   ? persistStore(store)
   : null;
 
-export type TypeRootState = ReturnType<typeof mainReducer>;
+export type TypeRootState = ReturnType<typeof store.getState>;
