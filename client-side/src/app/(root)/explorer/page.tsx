@@ -18,7 +18,7 @@ export default async function ExplorerPage() {
   const data = await getProducts();
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Explorer products={data} />;
+      <Explorer products={data} />
     </Suspense>
   );
 }
