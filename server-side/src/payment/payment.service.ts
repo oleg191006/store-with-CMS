@@ -34,8 +34,8 @@ export class PaymentService {
         quantity: item.quantity,
       })),
 
-      success_url: 'http://localhost:5000/success',
-      cancel_url: 'http://localhost:3000/cancel',
+      success_url: `${process.env.CLIENT_URL}/thanks`,
+      cancel_url: `${process.env.CLIENT_URL}/cart?canceled=true`,
       metadata: { orderId: order.id },
       locale: 'en',
     });

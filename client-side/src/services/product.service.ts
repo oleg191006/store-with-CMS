@@ -29,7 +29,7 @@ class ProductService {
   }
 
   async getByCategory(categoryId: string) {
-    const { data } = await axiosClassic<IProduct[]>({
+    const { data } = await axiosWithAuth<IProduct[]>({
       url: API_URL.products(`by-categoryId/${categoryId}`),
       method: "GET",
     });

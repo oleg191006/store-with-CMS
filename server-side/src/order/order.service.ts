@@ -2,10 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { OrderDto } from './dto/order.dto';
 import { EnumOrdersStatus } from 'generated/prisma';
+import { PaymentService } from '../payment/payment.service';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly paymentService: PaymentService,
+  ) {}
 
   async create(userId: string, dto: OrderDto) {
     const total = dto.items.reduce(
@@ -13,7 +17,7 @@ export class OrderService {
       0,
     );
 
-    return this.prisma.order.create({
+    const order = await this.prisma.order.create({
       data: {
         userId,
         total,
@@ -30,6 +34,40 @@ export class OrderService {
         items: true,
       },
     });
+
+    // Створюємо payment session
+    const paymentSession = await this.paymentService.createPaymentSession(
+      order.id,
+    );
+
+    if (!paymentSession.url) {
+      throw new NotFoundException('Failed to create payment session');
+    }
+
+    // Форматуємо відповідь під IPaymentResponse
+    return {
+      id: order.id,
+      status: order.status,
+      amount: {
+        value: order.total,
+        currency: 'usd',
+      },
+      recipient: {
+        accaount_id: '',
+        gateway_id: '',
+      },
+      payment_method: {
+        type: 'card',
+        id: '',
+        saved: false,
+      },
+      created_at: order.createdAt.toISOString(),
+      confirmation: {
+        type: 'redirect',
+        return_url: `${process.env.CLIENT_URL}/thanks`,
+        confirmation_url: paymentSession.url,
+      },
+    };
   }
 
   async getAllByUser(userId: string) {
