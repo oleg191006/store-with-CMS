@@ -8,8 +8,8 @@ export async function middleware(request: NextRequest) {
 
   if (isAuthPage) {
     if (refreshToken) {
-      const url = request.nextUrl.clone();
-      url.pathname = PUBLIC_URL.home();
+      // Використовуємо абсолютний URL для надійного редіректу на production
+      const url = new URL(PUBLIC_URL.home(), request.url);
       return NextResponse.redirect(url);
     }
 
@@ -17,8 +17,8 @@ export async function middleware(request: NextRequest) {
   }
 
   if (refreshToken === undefined) {
-    const url = request.nextUrl.clone();
-    url.pathname = PUBLIC_URL.auth();
+    // Використовуємо абсолютний URL для надійного редіректу на production
+    const url = new URL(PUBLIC_URL.auth(), request.url);
     return NextResponse.redirect(url);
   }
 

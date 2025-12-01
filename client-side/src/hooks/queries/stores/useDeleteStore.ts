@@ -14,7 +14,10 @@ export function useDeleteStore() {
     mutationFn: () => storeService.delete(params.storeId),
     onSuccess() {
       toast.success("Store deleted successfully");
-      router.push(PUBLIC_URL.home());
+      // Використовуємо window.location для надійного редіректу на production
+      setTimeout(() => {
+        window.location.href = PUBLIC_URL.home();
+      }, 100);
     },
     onError() {
       toast.error("Failed to delete store. Please try again.");

@@ -17,7 +17,10 @@ export function useCreateStore() {
     onSuccess(store) {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       toast.success("Store created successfully");
-      router.push(STORE_URL.home(store.id));
+      // Використовуємо window.location для надійного редіректу на production
+      setTimeout(() => {
+        window.location.href = STORE_URL.home(store.id);
+      }, 100);
     },
     onError() {
       toast.error("Failed to create store. Please try again.");

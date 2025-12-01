@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import {
@@ -24,7 +26,12 @@ export function HeaderCart() {
   const { items, total } = useCart();
 
   const handleClick = () => {
-    user ? createPayment() : router.push(PUBLIC_URL.auth());
+    if (user) {
+      createPayment();
+    } else {
+      // Використовуємо window.location для надійного редіректу на production
+      window.location.href = PUBLIC_URL.auth();
+    }
   };
 
   return (
