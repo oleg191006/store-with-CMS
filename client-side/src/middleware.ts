@@ -8,7 +8,6 @@ export async function middleware(request: NextRequest) {
 
   if (isAuthPage) {
     if (refreshToken) {
-      // Використовуємо абсолютний URL для надійного редіректу на production
       const url = new URL(PUBLIC_URL.home(), request.url);
       return NextResponse.redirect(url);
     }
@@ -17,7 +16,6 @@ export async function middleware(request: NextRequest) {
   }
 
   if (refreshToken === undefined) {
-    // Використовуємо абсолютний URL для надійного редіректу на production
     const url = new URL(PUBLIC_URL.auth(), request.url);
     return NextResponse.redirect(url);
   }

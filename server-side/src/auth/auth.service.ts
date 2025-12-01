@@ -100,9 +100,10 @@ export class AuthService {
     res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
       expires: expiresIn,
       httpOnly: true,
-      // domain: this.configService.get('COOKIE_DOMAIN'),
+
       secure: true,
       sameSite: 'none',
+      path: '/',
     });
   }
 
@@ -113,6 +114,7 @@ export class AuthService {
       // domain: this.configService.get('COOKIE_DOMAIN'),
       secure: true,
       sameSite: 'none',
+      path: '/',
     });
   }
 }

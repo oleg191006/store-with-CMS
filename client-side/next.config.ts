@@ -22,8 +22,15 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: ["./src"],
   },
-  // Додаємо налаштування для production
+
   reactStrictMode: true,
+  experimental: {
+    serverActions: {
+      allowedOrigins: [process.env.APP_URL!, process.env.APP_DOMAIN!].filter(
+        Boolean
+      ),
+    },
+  },
   async rewrites() {
     return [
       {
