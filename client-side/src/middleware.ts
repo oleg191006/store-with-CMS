@@ -11,11 +11,33 @@ export async function middleware(request: NextRequest) {
       const url = new URL(PUBLIC_URL.home(), request.url);
       return NextResponse.redirect(url);
     }
-
     return NextResponse.next();
   }
 
-  if (refreshToken === undefined) {
+  if (!refreshToken) {
+    const url = new URL(PUBLIC_URL.auth(), request.url);
+    return NextResponse.redirect(url);
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.SERVER_URL}/auth/access-token`,
+      {
+        method: "POST",
+        headers: {
+          Cookie: `refreshToken=${refreshToken}`,
+        },
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      const url = new URL(PUBLIC_URL.auth(), request.url);
+      const redirectResponse = NextResponse.redirect(url);
+      redirectResponse.cookies.delete("refreshToken");
+      return redirectResponse;
+    }
+  } catch {
     const url = new URL(PUBLIC_URL.auth(), request.url);
     return NextResponse.redirect(url);
   }
