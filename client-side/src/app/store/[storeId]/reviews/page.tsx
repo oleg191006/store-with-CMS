@@ -1,6 +1,7 @@
 import { NO_INDEX_PAGE } from "@/constants/seo.constants";
 import { Metadata } from "next";
 import Reviews from "./Reviews";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ReviewsPage() {
-  return <Reviews />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Reviews />;
+    </Suspense>
+  );
 }

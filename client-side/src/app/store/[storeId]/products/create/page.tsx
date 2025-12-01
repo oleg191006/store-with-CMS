@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { CreateProduct } from "./CreateProduct";
 import { NO_INDEX_PAGE } from "@/constants/seo.constants";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create Product",
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function CreateProductPage() {
-  return <CreateProduct />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CreateProduct />;
+    </Suspense>
+  );
 }
