@@ -33,7 +33,6 @@ export function Providers({
         ) : (
           <>
             <Toaster />
-            {children}
           </>
         )}
       </Provider>
