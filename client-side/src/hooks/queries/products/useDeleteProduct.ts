@@ -20,10 +20,8 @@ export const useDeleteProduct = () => {
         queryKey: ["get products for store dashboard"],
       });
       toast.success("Product deleted successfully");
-      // Використовуємо window.location для надійного редіректу на production
-      setTimeout(() => {
-        window.location.href = STORE_URL.products(params.storeId);
-      }, 100);
+      router.push(STORE_URL.products(params.storeId));
+      router.refresh();
     },
     onError() {
       toast.error("Failed to delete product. Please try again.");

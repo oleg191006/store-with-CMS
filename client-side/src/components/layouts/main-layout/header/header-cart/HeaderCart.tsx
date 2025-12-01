@@ -29,8 +29,7 @@ export function HeaderCart() {
     if (user) {
       createPayment();
     } else {
-      // Використовуємо window.location для надійного редіректу на production
-      window.location.href = PUBLIC_URL.auth();
+      router.push(PUBLIC_URL.auth());
     }
   };
 

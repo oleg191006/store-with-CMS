@@ -20,10 +20,9 @@ export function useAuthForm(isReg: boolean) {
     onSuccess() {
       form.reset();
       toast.success("Successfully authenticated!");
-      // Використовуємо window.location для надійного редіректу після встановлення cookies
-      setTimeout(() => {
-        window.location.href = DASHBOARD_URL.home();
-      }, 100);
+      // Використовуємо router.push з refresh для оновлення стану
+      router.push(DASHBOARD_URL.home());
+      router.refresh();
     },
     onError(error) {
       if (error.message) {
