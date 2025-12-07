@@ -19,7 +19,7 @@ This project consists of two main parts:
 ### Prerequisites
 
 - Node.js (v18 or higher)
-- PostgreSQL database
+- PostgreSQL database (v12 or higher)
 - npm or yarn package manager
 
 ### Installation

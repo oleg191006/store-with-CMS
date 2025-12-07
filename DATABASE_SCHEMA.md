@@ -172,4 +172,4 @@ Represents individual items within an order, tracking:
 ## Order Status Enum
 
 - `PENDING`: Order has been placed but not yet paid
-- `PAYED`: Order has been paid for
+- `PAYED`: Order has been paid for (Note: This is the actual enum value in the database schema)

@@ -93,6 +93,8 @@ classDiagram
         PENDING
         PAYED
     }
+    
+    note for EnumOrdersStatus "Enum values as defined in Prisma schema"
 
     User "1" --> "*" Store : owns
     User "1" --> "*" Product : favorites
