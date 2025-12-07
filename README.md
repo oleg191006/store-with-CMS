@@ -12,6 +12,7 @@ This project consists of two main parts:
 ## Documentation
 
 - [Database Schema](./DATABASE_SCHEMA.md) - Complete Entity Relationship Diagram and model descriptions
+- [Class Diagram](./CLASS_DIAGRAM.md) - Class diagram view of the database models
 
 ## Getting Started
 
