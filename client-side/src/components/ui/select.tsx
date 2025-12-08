@@ -55,6 +55,8 @@ function SelectContent({
   children,
   position = "popper",
   align = "center",
+  side = "bottom",
+  avoidCollisions = false,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -69,12 +71,14 @@ function SelectContent({
         )}
         position={position}
         align={align}
+        side={side}
+        avoidCollisions={avoidCollisions}
         {...props}
       >
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
-            "p-1",
+            "p-1 max-h-64",
             position === "popper" &&
               "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
           )}
