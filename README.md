@@ -214,7 +214,10 @@ cd ../client-side
 Створіть файл `.env.local`:
 
 ```env
-NEXT_PUBLIC_API_URL="http://localhost:5000"
+APP_ENV = develpopment
+API_URL = http://localhost:3000
+APP_DOMAIN= localhost
+SERVER_URL = http://localhost:5000
 ```
 
 ## 🎯 Запуск проекту
